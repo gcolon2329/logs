@@ -17,3 +17,12 @@ WHERE articles.slug = substring(log.path, 10)
 AND articles.author = authors.id
 GROUP BY authors.name
 ORDER BY views DESC;)
+
+request3 = "On which days did 1% of the requests lead to an error?"
+
+query3 = (SELECT time::date as day, count(*)
+    FROM log
+    WHERE status != '200 OK'
+    GROUP BY time::date
+    ORDER BY count
+    DESC limit 1;)
