@@ -26,3 +26,12 @@ query3 = (SELECT time::date as day, count(*)
     GROUP BY time::date
     ORDER BY count
     DESC limit 1;)
+
+
+def get_queryResults(sql_query):
+    db = psycopg2.connect(database=DBNAME)
+    c = db.cursor()
+    c.execute(sql_query)
+    results = c.fetchall()
+    db.close()
+    return results
